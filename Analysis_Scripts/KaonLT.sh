@@ -96,8 +96,8 @@ if [[ $4 -eq "" ]]; then
 fi
 
 if [[ $RUNTYPE == "Prod" ]]; then
-    echo "Running production analysis script - ${UTILPATH}/scripts/online_physics/KaonLT/kaon_prod_replay_analysis_sw.sh"
-    eval '"${UTILPATH}/scripts/online_physics/KaonLT/kaon_prod_replay_analysis_sw.sh" ${RUNNUMBER} ${TARGET} ${MAXEVENTS}'
+    echo "Running production analysis script - ${UTILPATH}/scripts/USERS/heinricn/KaonLT/kaon_prod_replay_analysis_sw.sh"
+    eval '"${UTILPATH}/scripts/USERS/heinricn/KaonLT/kaon_prod_replay_analysis_sw.sh" ${RUNNUMBER} ${TARGET} ${MAXEVENTS}'
 elif [[ $RUNTYPE == "Lumi" ]]; then
     echo "Running luminosity analysis script - ${UTILPATH}/scripts/luminosity/replay_lumi.sh"
     eval '"${UTILPATH}/scripts/luminosity/replay_lumi.sh" -t ${RUNNUMBER} ${MAXEVENTS}'
