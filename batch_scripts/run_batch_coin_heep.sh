@@ -13,10 +13,10 @@ else
     MAXEVENTS=$2
 fi
 
-##Output history file
-historyfile=hist.$( date "+%Y-%m-%d_%H-%M-%S" ).log
-##Input run numbers
-inputFile="/group/c-pionlt/online_analysis/hallc_replay_lt/UTIL_BATCH/InputRunLists/${RunList}"
+# 15/02/22 - SJDK - Added the swif2 workflow as a variable you can specify here
+Workflow="LTSep_${USER}" # Change this as desired
+# Input run numbers, this just points to a file which is a list of run numbers, one number per line
+inputFile="/group/c-pionlt/USERS/${USER}/hallc_replay_lt/UTIL_BATCH/InputRunLists/${RunList}"
 
 while true; do
     read -p "Do you wish to begin a new batch submission? (Please answer yes or no) " yn
@@ -70,7 +70,7 @@ while true; do
                 echo "COMMAND:/group/c-pionlt/USERS/${USER}/hallc_replay_lt/UTIL_BATCH/Analysis_Scripts/FullReplay_coin_heep.sh ${runNum} ${MAXEVENTS}"  >> ${batch}
                 echo "MAIL: ${USER}@jlab.org" >> ${batch}
                 echo "Submitting batch"
-                eval "jsub ${batch} 2>/dev/null"
+		eval "swif2 add-jsub ${Workflow} -script ${batch} 2>/dev/null" # Swif2 job submission, uses old jsub scripts
                 echo " "
 		sleep 2
 		rm ${batch}
@@ -85,6 +85,7 @@ while true; do
 		fi
 		done < "$inputFile"
 	     )
+	    eval 'swif2 run ${Workflow}'
 	    break;;
         [Nn]* ) 
 	        exit;;

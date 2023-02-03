@@ -23,7 +23,7 @@ fi
 if [[ "${HOSTNAME}" = *"farm"* ]]; then  
     REPLAYPATH="/group/c-pionlt/USERS/${USER}/hallc_replay_lt"
     if [[ "${HOSTNAME}" != *"ifarm"* ]]; then
-	source /site/12gev_phys/softenv.sh 2.4
+	#source /site/12gev_phys/softenv.sh 2.4 // CUE broken, should no longer use
 	source /apps/root/6.18.04/setroot_CUE.bash
     fi
     cd "/group/c-pionlt/hcana/"
@@ -32,7 +32,7 @@ if [[ "${HOSTNAME}" = *"farm"* ]]; then
     source "$REPLAYPATH/setup.sh"
 elif [[ "${HOSTNAME}" = *"qcd"* ]]; then
     REPLAYPATH="/group/c-pionlt/USERS/${USER}/hallc_replay_lt"
-    source /site/12gev_phys/softenv.sh 2.4
+    #source /site/12gev_phys/softenv.sh 2.4 // CUE broken, should no longer use
     source /apps/root/6.18.04/setroot_CUE.bash
     cd "/group/c-pionlt/hcana/"
     source "/group/c-pionlt/hcana/setup.sh" 
@@ -47,4 +47,4 @@ cd $REPLAYPATH
 
 echo -e "\n\nStarting Replay Script\n\n"
 eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/replay_production_coin_hElec_pProt.C($RUNNUMBER,$MAXEVENTS)\""
-exit 1
+exit 0

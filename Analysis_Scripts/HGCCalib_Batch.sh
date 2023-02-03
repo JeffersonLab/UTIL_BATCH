@@ -34,15 +34,16 @@ fi
 # Set path depending upon hostname. Change or add more as needed  
 if [[ "${HOSTNAME}" = *"farm"* ]]; then  
     REPLAYPATH="/group/c-pionlt/USERS/${USER}/hallc_replay_lt"
+    #REPLAYPATH="/group/c-pionlt/online_analysis/hallc_replay_lt"
     if [[ "${HOSTNAME}" != *"ifarm"* ]]; then
 	#source /site/12gev_phys/softenv.sh 2.4
-	source /apps/root/6.22.06/setroot_CUE.csh
+	source /apps/root/6.18.04/setroot_CUE.bash
     fi
     cd "$REPLAYPATH"
     source "$REPLAYPATH/setup.sh"
 elif [[ "${HOSTNAME}" = *"qcd"* ]]; then
     REPLAYPATH="/group/c-pionlt/USERS/${USER}/hallc_replay_lt"
-    source /site/12gev_phys/softenv.sh 2.4
+    #source /site/12gev_phys/softenv.sh 2.4
     source /apps/root/6.18.04/setroot_CUE.bash
     cd "$REPLAYPATH"
     source "$REPLAYPATH/setup.sh" 
@@ -72,7 +73,7 @@ if [ ! -f "$REPLAYPATH/ROOTfiles/Calib/HGC/coin_replay_production_${RUNNUMBER}_$
     if [[ "${HOSTNAME}" != *"ifarm"* ]]; then
 	eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/replay_production_coin_HGC.C($RUNNUMBER,$MAXEVENTS)\"" 
     elif [[ "${HOSTNAME}" == *"ifarm"* ]]; then
-	#eval 
+	eval 
 	eval "$REPLAYPATH/hcana -l -q \"SCRIPTS/COIN/PRODUCTION/replay_production_coin_HGC.C($RUNNUMBER,$MAXEVENTS)\""
     fi
 else echo "Replayfile already found for this run in $REPLAYPATH/ROOTfiles/Calib/HGC - Skipping replay step"

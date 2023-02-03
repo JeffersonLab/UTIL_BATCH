@@ -13,10 +13,10 @@ if [[ -z "$1" ]]; then
     exit 2
 fi
 
-##Output history file##
-historyfile=hist.$( date "+%Y-%m-%d_%H-%M-%S" ).log
-##Input run numbers##
-inputFile="/group/c-pionlt/online_analysis/hallc_replay_lt/UTIL_BATCH/InputRunLists/${RunList}"
+# 15/02/22 - SJDK - Added the swif2 workflow as a variable you can specify here
+Workflow="LTSep_${USER}" # Change this as desired
+# Input run numbers, this just points to a file which is a list of run numbers, one number per line
+inputFile="/group/c-pionlt/USERS/${USER}/hallc_replay_lt/UTIL_BATCH/InputRunLists/${RunList}"
 
 while true; do
     read -p "Do you wish to begin a new batch submission? (Please answer yes or no) " yn
@@ -50,7 +50,7 @@ while true; do
                 echo "Running ${batch} for ${runNum}"
                 cp /dev/null ${batch}
                 ##Creation of batch script for submission##                          
-                echo "PROJECT: c-pionlt" >> ${batch}
+                echo "PROJECT: c-kaonlt" >> ${batch}
                 echo "TRACK: analysis" >> ${batch}
                 #echo "TRACK: debug" >> ${batch} ### Use for testing
                 echo "JOBNAME: PionLT_${runNum}" >> ${batch}
@@ -64,10 +64,10 @@ while true; do
                 echo "CPU: 1" >> ${batch} ### hcana single core, setting CPU higher will lower priority!
 		echo "INPUT_FILES: ${tape_file}" >> ${batch}
 		#echo "TIME: 1" >> ${batch} 
-		echo "COMMAND:/group/c-pionlt/online_analysis/hallc_replay_lt/UTIL_BATCH/Analysis_Scripts/FullReplay_Batch_SetPedDef.sh ${runNum}" >> ${batch}
+		echo "COMMAND:/group/c-pionlt/USERS/${USER}/hallc_replay_lt/UTIL_BATCH/Analysis_Scripts/FullReplay_Batch_SetPedDef.sh ${runNum}" >> ${batch}
 		echo "MAIL: ${USER}@jlab.org" >> ${batch}
                 echo "Submitting batch"
-                eval "swif2 add-jsub LTSep -script ${batch} 2>/dev/null"
+                eval "swif2 add-jsub ${Workflow} -script ${batch} 2>/dev/null"
                 echo " "
                 i=$(( $i + 1 ))
 		if [ $i == $numlines ]; then
@@ -80,6 +80,7 @@ while true; do
 		fi
 	    done < "$inputFile"
 	    )
+	    eval 'swif2 run ${Workflow}'
 	    break;;
         [Nn]* ) 
 	    exit;;
