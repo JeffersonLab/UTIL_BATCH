@@ -1,9 +1,9 @@
-#! /bin/bash
+#!/bin/bash
 
 echo "Starting Replay script"
 echo "I take as arguments the Run Number and max number of events!"
 RUNNUMBER=$1
-MAXEVENTS=$2
+MAXEVENTS=-1
 ### Check you've provided the an argument
 if [[ $1 -eq "" ]]; then
     echo "I need a Run Number!"
@@ -44,11 +44,5 @@ fi
 cd $REPLAYPATH
 
 echo -e "\n\nStarting Replay Script\n\n"
-echo "$REPLAYPATH/hcana -l -q \"UTIL_PION/scripts/replay/PionLT/replay_AllRefTimes.C($RUNNUMBER,$MAXEVENTS)\""
-#eval "$REPLAYPATH/hcana -l -q \"UTIL_PION/scripts/replay/PionLT/replay_AllRefTimes.C($RUNNUMBER,$MAXEVENTS)\""
-
-cd $REPLAYPATH/CALIBRATION/ref_times
-COMMAND="root -l -q -b 'RefTimes.C(\"$REPLAYPATH/ROOTfiles/Calib/General/Pion_coin_replay_AllRefTimes_${RUNNUMBER}_$MAXEVENTS.root\",${RUNNUMBER})'"
-echo $COMMAND
-eval $COMMAND
+eval "$REPLAYPATH/hcana -l -q \"UTIL_PION/scripts/replay/replay_fADC_MODE10_Test.C($RUNNUMBER,$MAXEVENTS)\""
 exit 0

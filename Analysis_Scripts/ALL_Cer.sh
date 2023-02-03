@@ -1,9 +1,9 @@
-#! /bin/bash
+#!/bin/bash
 
 echo "Starting Replay script"
 echo "I take as arguments the Run Number and max number of events!"
 RUNNUMBER=$1
-MAXEVENTS=$2
+MAXEVENTS=-1
 ### Check you've provided the an argument
 if [[ $1 -eq "" ]]; then
     echo "I need a Run Number!"
@@ -21,7 +21,7 @@ fi
 if [[ "${HOSTNAME}" = *"farm"* ]]; then  
     REPLAYPATH="/group/c-pionlt/USERS/${USER}/hallc_replay_lt"
     if [[ "${HOSTNAME}" != *"ifarm"* ]]; then
-	source /site/12gev_phys/softenv.sh 2.4
+	#source /site/12gev_phys/softenv.sh 2.4
 	source /apps/root/6.18.04/setroot_CUE.bash
     fi
     cd "/group/c-pionlt/hcana/"
@@ -31,7 +31,7 @@ if [[ "${HOSTNAME}" = *"farm"* ]]; then
 elif [[ "${HOSTNAME}" = *"qcd"* ]]; then
     REPLAYPATH="/group/c-pionlt/USERS/${USER}/hallc_replay_lt"
     source /site/12gev_phys/softenv.sh 2.4
-    source /apps/root/6.18.04/setroot_CUE.bash
+    source /apps/root/6.18.04/setroot_CUE.csh
     cd "/group/c-pionlt/hcana/"
     source "/group/c-pionlt/hcana/setup.sh" 
     cd "$REPLAYPATH"
@@ -43,12 +43,7 @@ elif [[ "${HOSTNAME}" = *"phys.uregina.ca"* ]]; then
 fi
 cd $REPLAYPATH
 
+echo "$REPLAYPATH/hcana -l -q \"$REPLAYPATH/UTIL_PION/scripts/replay/PionLT/replay_Cer_Calib_ALL.C($RUNNUMBER,$MAXEVENTS)\""
 echo -e "\n\nStarting Replay Script\n\n"
-echo "$REPLAYPATH/hcana -l -q \"UTIL_PION/scripts/replay/PionLT/replay_AllRefTimes.C($RUNNUMBER,$MAXEVENTS)\""
-#eval "$REPLAYPATH/hcana -l -q \"UTIL_PION/scripts/replay/PionLT/replay_AllRefTimes.C($RUNNUMBER,$MAXEVENTS)\""
-
-cd $REPLAYPATH/CALIBRATION/ref_times
-COMMAND="root -l -q -b 'RefTimes.C(\"$REPLAYPATH/ROOTfiles/Calib/General/Pion_coin_replay_AllRefTimes_${RUNNUMBER}_$MAXEVENTS.root\",${RUNNUMBER})'"
-echo $COMMAND
-eval $COMMAND
+eval "$REPLAYPATH/hcana -l -q \"$REPLAYPATH/UTIL_PION/scripts/replay/PionLT/replay_Cer_Calib_ALL.C($RUNNUMBER,$MAXEVENTS)\""
 exit 0

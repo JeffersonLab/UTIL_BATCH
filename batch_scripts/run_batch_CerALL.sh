@@ -58,7 +58,7 @@ while true; do
                 ##Creation of batch script for submission##
                 echo "PROJECT: c-kaonlt" >> ${batch}
                 echo "TRACK: analysis" >> ${batch}
-                echo "JOBNAME: HGCCalib_${runNum}" >> ${batch}
+                echo "JOBNAME: CerCalibALL_${runNum}" >> ${batch}
                 # Request disk space depending upon raw file size
                 echo "DISK_SPACE: "$(( $TapeFileSize * 3 ))" GB" >> ${batch}
 		if [[ $TapeFileSize -le 45 ]]; then
@@ -70,7 +70,7 @@ while true; do
                 echo "CPU: 1" >> ${batch} ### hcana single core, setting CPU higher will lower priority!
 		echo "INPUT_FILES: ${tape_file}" >> ${batch}
 		#echo "TIME: 1" >> ${batch} 
-		echo "COMMAND:/group/c-pionlt/USERS/${USER}/hallc_replay_lt/UTIL_BATCH/Analysis_Scripts/HGCCalib_Batch.sh ${runNum}" >> ${batch}
+		echo "COMMAND:/group/c-pionlt/USERS/${USER}/hallc_replay_lt/UTIL_BATCH/Analysis_Scripts/ALL_Cer.sh ${runNum}" >> ${batch}
 		echo "MAIL: ${USER}@jlab.org" >> ${batch}
                 echo "Submitting batch"
                 eval "swif2 add-jsub LTSep1 -script ${batch} 2>/dev/null"
