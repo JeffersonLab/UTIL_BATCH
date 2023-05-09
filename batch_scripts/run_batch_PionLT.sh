@@ -94,7 +94,7 @@ while true; do
 		if [[ $TapeFileSize -le 45 ]]; then # Assign memory based on size of tape file, should keep this as low as possible!
                     echo "MEMORY: 3000 MB" >> ${batch}
                 elif [[ $TapeFileSize -ge 45 ]]; then
-                    echo "MEMORY: 4000 MB" >> ${batch}
+                    echo "MEMORY: 8000 MB" >> ${batch}
                 fi
 		echo "CPU: 1" >> ${batch} ### hcana is single core, setting CPU higher will lower priority and gain you nothing!
 		echo "INPUT_FILES: ${tape_file}" >> ${batch}
