@@ -49,6 +49,12 @@ while true; do
 		elif [[ $runNum -lt 10000 ]]; then
 		    MSSstub='/mss/hallc/spring17/raw/coin_all_%05d.dat'
 		fi
+		tape_file=`printf $MSSstub $runNum`
+		TapeFileSize=$(($(sed -n '4 s/^[^=]*= *//p' < $tape_file)/1000000000))
+		if [[ $TapeFileSize == 0 ]];then
+                    TapeFileSize=1
+                fi
+		echo "Raw .dat file is "$TapeFileSize" GB"
 		##Output batch job file##
 		batch="${USER}_${runNum}_${SPEC}_HodoCalib_Job.txt"
                 tape_file=`printf $MSSstub $runNum`
@@ -63,8 +69,8 @@ while true; do
 		echo "TRACK: analysis" >> ${batch}
 		#echo "TRACK: debug" >> ${batch}
                 echo "JOBNAME: PionLT_HodoCalib_${SPEC}_${runNum}" >> ${batch}
-		echo "DISK_SPACE: 20 GB" >>${batch}
-                echo "MEMORY: 3000 MB" >> ${batch}
+		echo "DISK_SPACE: "$(( $TapeFileSize * 2 ))" GB" >>${batch}
+                echo "MEMORY: 16000 MB" >> ${batch}
                 #echo "OS: centos7" >> ${batch}
                 echo "CPU: 1" >> ${batch} ### hcana single core, setting CPU higher will lower priority!
 		echo "INPUT_FILES: ${tape_file}" >> ${batch}

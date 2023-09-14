@@ -87,8 +87,8 @@ sleep 15
 #root -l -b -q "calibration_noTProof.C(\"${REPLAYPATH}/ROOTfiles/Calib/General/Pion_coin_replay_calibration\", $RUNNUMBER, 1, $MAXEVENTS)" 
 #sleep 15
 
-cd "$REPLAYPATH/CALIBRATION/hms_cer_calib"
-echo "root -l -b -q \"run_cal.C(${RUNNUMBER}, -1, 1)\""
-root -l -b -q "run_cal.C(${RUNNUMBER}, ${MAXEVENTS}, 1)"
-sleep 15
+#cd "$REPLAYPATH/CALIBRATION/hms_cer_calib"
+#echo "root -l -b -q \"run_cal.C(${RUNNUMBER}, -1, 1)\""
+#root -l -b -q "run_cal.C(${RUNNUMBER}, ${MAXEVENTS}, 1)"
+#sleep 15
 exit 0
