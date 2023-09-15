@@ -131,7 +131,7 @@ if [ $RUNNUMBER -lt 14777 ]; then
 	low=${noFront:0:5}
 	high=${noFront:6:5}
 	echo "Searching for $RUNNUMBER between $low and $high"
-	if [ $RUNNUMBER -lt $high ] && [ $RUNNUMBER -gt $low ]; then
+	if [ $RUNNUMBER -le $high ] && [ $RUNNUMBER -ge $low ]; then
 	    echo "found ./OfflinePionLT_$low-$high.param copying"
 	    cp "./OfflinePionLT_$low-$high.param" $REPLAYPATH/DBASE/COIN/HodoCalib/OfflineCalib_$RUNNUMBER.param
 	    break
