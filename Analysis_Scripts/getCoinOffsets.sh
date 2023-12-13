@@ -9,7 +9,7 @@ if [[ -z "$1" ]]; then
     exit 2
 fi
 
-REPLAYPATH="/home/heinricn/work/JLab/hallc_replay_lt/"
+REPLAYPATH="/u/group/c-pionlt/USERS/heinricn/hallc_replay_lt/"
 
 while IFS='' read -r line || [[ -n "$line" ]]; do
                 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
